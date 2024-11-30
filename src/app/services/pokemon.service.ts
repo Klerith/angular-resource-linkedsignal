@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { tap } from 'rxjs';
+import { delay, map, tap } from 'rxjs';
 import type { PokeapiResponse } from '../interfaces/pokeapi.response';
 
 @Injectable({
@@ -12,6 +12,10 @@ export class PokemonService {
   getPokemons() {
     return this.http
       .get<PokeapiResponse>('https://pokeapi.co/api/v2/pokemon')
-      .pipe(tap(console.log));
+      .pipe(
+        map(({ results }) => results),
+        delay(2000),
+        tap(console.log)
+      );
   }
 }

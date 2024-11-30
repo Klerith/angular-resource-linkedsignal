@@ -1,14 +1,28 @@
 <p class="text-2xl">Selector de Pokémons</p>
 
 <select class="border p-2 w-full">
-  <option value="1">Bulbasaur</option>
+  <!-- <option value="0">Selecciona un Pokémon</option> -->
+
+  @for (pokemon of pokemonOptions(); track pokemon.name) {
+  <option
+    value="{{ pokemon.name }}"
+    [selected]="selectedPokemon() === pokemon.name"
+  >
+    {{ pokemon.name }}
+  </option>
+  } @empty {
+  <option value="0">Espere por favor</option>
+  }
+
+  <!-- <option value="1">Bulbasaur</option>
   <option value="2">Ivysaur</option>
   <option value="3">Venusaur</option>
   <option value="4">Charmander</option>
   <option value="5">Charmeleon</option>
-  <option value="6">Charizard</option>
+  <option value="6">Charizard</option> -->
 </select>
 
 <p class="mt-10">
-  Opción seleccionada: <span class="text-blue-500 font-bold">{{ "algo" }}</span>
+  Opción seleccionada:
+  <span class="text-blue-500 font-bold">{{ selectedPokemon() }}</span>
 </p>
