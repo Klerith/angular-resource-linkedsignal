@@ -9,9 +9,11 @@ import type { PokeapiResponse, Pokemon } from '../interfaces/pokeapi.response';
 export class PokemonService {
   private http = inject(HttpClient);
 
-  getPokemons(): Observable<Pokemon[]> {
+  getPokemons(page: number = 0): Observable<Pokemon[]> {
     return this.http
-      .get<PokeapiResponse>('https://pokeapi.co/api/v2/pokemon')
+      .get<PokeapiResponse>(
+        `https://pokeapi.co/api/v2/pokemon?offset=${page * 20}`
+      )
       .pipe(
         map(({ results }) => results),
         delay(2000),
